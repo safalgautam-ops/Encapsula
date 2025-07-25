@@ -10,7 +10,7 @@ def check_file_type(filepath):
     if not os.path.isfile(filepath):
         return None
     image_exts = ('.png', '.jpg', '.jpeg', '.bmp', '.webp')
-    file_exts = ('.txt', '.pdf', '.docx', '.zip', '.rar')  # Add more as needed
+    file_exts = ('.txt', '.pdf', '.docx', '.pptx', '.xls', '.doc', '.xlsx')
     ext = filepath.lower()
     if ext.endswith(image_exts):
         return "image"
@@ -20,7 +20,9 @@ def check_file_type(filepath):
         return None
 
 def main():
-    print(":: Steganography ::")
+    print(":: Encapsula: Steganography Toolkit::")
+    print("--Developed by: safalgautam-ops--")
+    print("----------------------------------")
     print("1. Encode")
     print("2. Decode")
     choice = input("Choose (1/2): ").strip()
@@ -38,7 +40,7 @@ def main():
         if file_type == "image":
             out_file = input("Enter output image file path (with extension): ").strip()
         else:
-            out_file = input("Enter output file path: ").strip()
+            out_file = input("Enter output file path (with extension): ").strip()
         result = encode_stego(filepath, msg, password, out_file=out_file)
         print(result)
     elif choice == '2':
@@ -63,19 +65,7 @@ def main():
         print("Invalid choice.")
 
 def encode_stego(filepath, msg, password, out_file=None):
-    """
-    Encodes a message into an image or file using steganography.
-    Args:
-        filepath (str): Path to the cover file (image or document).
-        msg (str): The message to hide.
-        password (str): The password for encryption.
-        out_file (str): Output file path (required).
-    Returns:
-        str: Success message or error message.
-    """
     file_type = check_file_type(filepath)
-    if not file_type:
-        return "Unsupported or missing file. Please provide a supported image or document format."
     if not out_file:
         return "Output file path required."
     packed = encrypt(msg, password)
@@ -91,14 +81,6 @@ def encode_stego(filepath, msg, password, out_file=None):
         return f"Error: {e}"
 
 def decode_stego(filepath, password):
-    """
-    Decodes a hidden message from an image or file using steganography.
-    Args:
-        filepath (str): Path to the stego file (image or document).
-        password (str): The password for decryption.
-    Returns:
-        str: Decoded message or error message.
-    """
     file_type = check_file_type(filepath)
     if not file_type:
         return "Unsupported or missing file. Please provide a supported image or document format."
@@ -109,7 +91,7 @@ def decode_stego(filepath, password):
             extracted = file_decode(filepath)
         packed = base64.b64decode(extracted.encode('utf-8'))
         if not check_password(packed, password):
-            return "Incorrect password."
+            return "Error"
         try:
             msg = decrypt(packed, password)
             return msg

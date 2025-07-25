@@ -44,8 +44,6 @@ def modPix(pix, data):
             if pixels[-1] % 2 != 0:
                 pixels[-1] -= 1 #
 
-        print(f"Flag pixel (9th) set to: {pixels[-1]} (odd=stop, even=continue)")
-
         # Yield modified pixels as tuples of 3 RGB values
         yield tuple(pixels[0:3]) 
         yield tuple(pixels[3:6])

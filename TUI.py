@@ -7,7 +7,6 @@ from textual.screen import Screen
 import tkinter as tk
 from tkinter import filedialog
 import os
-import threading
 
 from main import check_file_type, encode_stego, decode_stego
 
@@ -211,7 +210,10 @@ class Page3functional(Static):
             
     def show_result(self, decoded_mesg):
         decode_screen = self.app.screen_stack[-1]
-        decode_screen.query_one("#pswd_check", Static).update(f"The hidden message is: {decoded_mesg}")
+        if decoded_mesg == "Error":
+            decode_screen.query_one("#pswd_check", Static).update("Incorrect password. Please try again.")
+        else:
+            decode_screen.query_one("#pswd_check", Static).update(f"The hidden message is: {decoded_mesg}")
 
     @on(Button.Pressed, "#back_button")
     def go_back(self):
@@ -224,10 +226,10 @@ class Frontdisplay(Static):
             Static("This tool was designed and developed by", id="subtitle", classes="texts"),
             Static(r"""
  ____  ____    __    ____  ____  _  _  ____ 
-(  _ \( ___)  /__\  (  _ \( ___)( \/ )( ___)
- )(_) ))__)  /(__)\  )(_) ))__)  \  /  )__) 
+(  _ \( ___)  /__\  (  _ \( ___)( \/ )( ___)    
+ )(_) ))__)  /(__)\  )(_) ))__)  \  /  )__)    
 (____/(____)(__)(__)(____/(____) (__) (____)
-                                ©Safal Gautam
+                                @Safal Gautam
 """, id="ascii", classes="texts"),
             Static("github: safalgautam-ops", id="github", classes="texts"),
             Static("This toolkit allows you to hide messages in images or files.", id="description", classes="texts"),

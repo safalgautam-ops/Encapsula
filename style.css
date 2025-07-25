@@ -1,6 +1,6 @@
 Container{
     height: 100%;
-    margin: 4 8;
+    margin: 2 4;
     background: $boost;
     color: $text;
     border: tall $panel;
@@ -17,8 +17,7 @@ Button{
     margin: 2 4;
 }
 
-.button-group{
-    height: auto;
+#button-group{
     width: 100%;
     dock: bottom;
 }
@@ -34,4 +33,19 @@ Button{
 #title{
     color: #d4ee19;
 }
+
+#message_input {
+    height: 5;
+    width: 1fr;
+    border: tall $panel;
+    padding: 1 2;
+    color: $text;
+    background: $surface;
+}
+
+.input-field {
+    margin-bottom: 1;
+}
+
+
 

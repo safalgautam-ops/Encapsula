@@ -7,7 +7,6 @@ import struct
 import hashlib
 
 def hash_password(password):
-    """Return SHA-256 hash of the password as bytes."""
     #encode(): Convert password to bytes if it's a string
     #sha256(): Create a SHA-256 hash object ready to compute the hash
     #digest(): Return the binary digest of the hash(as a bytes object)
